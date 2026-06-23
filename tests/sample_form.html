@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sample Form (offline mirror of shadcn React Hook Form demo)</title>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      margin: 0; padding: 48px 16px; background: #f6f7f9; color: #0a0a0a;
+      display: flex; justify-content: center;
+    }
+    .card {
+      width: 100%; max-width: 480px; background: #fff; border: 1px solid #e5e7eb;
+      border-radius: 14px; padding: 24px; box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      margin-bottom: 28px;
+    }
+    h1 { font-size: 18px; margin: 0 0 4px; }
+    .muted { color: #6b7280; font-size: 14px; margin: 0 0 20px; }
+    label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .hint { color: #6b7280; font-size: 12px; margin-top: 6px; }
+    input[type="text"], textarea {
+      width: 100%; border: 1px solid #d1d5db; border-radius: 8px;
+      padding: 8px 11px; font-size: 14px; font-family: inherit; background: #fff;
+    }
+    textarea { resize: none; min-height: 96px; }
+    input:focus, textarea:focus { outline: 2px solid #2563eb; outline-offset: 1px; border-color: #2563eb; }
+    .field { margin-bottom: 18px; }
+    .row { display: flex; gap: 10px; justify-content: flex-end; margin-top: 8px; }
+    button {
+      border-radius: 8px; padding: 8px 16px; font-size: 14px; font-weight: 600; cursor: pointer;
+      border: 1px solid #d1d5db; background: #fff;
+    }
+    button[type="submit"] { background: #18181b; color: #fff; border-color: #18181b; }
+    .counter { color: #6b7280; font-size: 12px; text-align: right; margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <!--
+    This is the FIRST form on the page. It mirrors the structure of the target
+    "Bug Report" demo at https://ui.shadcn.com/docs/forms/react-hook-form :
+      * a single-line text input labelled "Bug Title"  (the "name" field)
+      * a textarea labelled "Description"
+    The agent's element detector scopes to this first form, just like on the
+    real page. The second form below exists only to prove the agent ignores it.
+  -->
+  <div class="card">
+    <h1>Bug Report</h1>
+    <p class="muted">Help us improve by reporting bugs you encounter.</p>
+    <form id="form-rhf-demo" onsubmit="onSubmit(event)">
+      <div class="field">
+        <label for="form-rhf-demo-title">Bug Title</label>
+        <input id="form-rhf-demo-title" name="title" type="text"
+               placeholder="Login button not working on mobile" autocomplete="off" />
+      </div>
+      <div class="field">
+        <label for="form-rhf-demo-description">Description</label>
+        <textarea id="form-rhf-demo-description" name="description" rows="6"
+                  placeholder="I'm having an issue with the login button on mobile."
+                  oninput="updateCounter()"></textarea>
+        <div class="counter"><span id="char-count">0</span>/100 characters</div>
+        <p class="hint">Include steps to reproduce, expected behavior, and what actually happened.</p>
+      </div>
+      <div class="row">
+        <button type="button" onclick="document.getElementById('form-rhf-demo').reset(); updateCounter();">Reset</button>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Decoy form: the agent should NOT touch this one. -->
+  <div class="card">
+    <h1>Profile Settings</h1>
+    <p class="muted">Update your profile information below.</p>
+    <form id="form-profile">
+      <div class="field">
+        <label for="profile-username">Username</label>
+        <input id="profile-username" name="username" type="text" placeholder="shadcn" />
+      </div>
+      <div class="row">
+        <button type="submit">Save</button>
+      </div>
+    </form>
+  </div>
+
+  <div id="result" class="muted" style="text-align:center; width:100%;"></div>
+
+  <script>
+    function updateCounter() {
+      var ta = document.getElementById('form-rhf-demo-description');
+      document.getElementById('char-count').textContent = ta.value.length;
+    }
+    function onSubmit(e) {
+      e.preventDefault();
+      var title = document.getElementById('form-rhf-demo-title').value;
+      var desc = document.getElementById('form-rhf-demo-description').value;
+      document.getElementById('result').textContent =
+        'Submitted -> title="' + title + '", description="' + desc + '"';
+    }
+  </script>
+</body>
+</html>

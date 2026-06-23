@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Secrets — never commit real API keys
+.env
+
+# Runtime artifacts produced by the agent
+screenshots/*.png
+logs/*.log
+
+# Keep the empty folders in git
+!screenshots/.gitkeep
+!logs/.gitkeep
+
+# OS / editor noise
+.DS_Store
+.idea/
+.vscode/

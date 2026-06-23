@@ -1,0 +1,14 @@
+# Core browser automation engine
+playwright==1.49.0
+
+# LLM "brain" for the intelligent agent mode (Anthropic Claude)
+anthropic==0.40.0
+
+# Alternative free "brain" — Groq's OpenAI-compatible API (Llama models)
+groq==1.5.0
+
+# Loads configuration / secrets from a .env file
+python-dotenv==1.0.1
+
+# Test runner (optional, for `pytest`)
+pytest==8.3.4
